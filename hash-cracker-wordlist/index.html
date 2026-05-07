@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wordlist Hash Cracker</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Local security lab</p>
+          <h1>Wordlist Hash Cracker</h1>
+        </div>
+        <span class="badge">Client-side</span>
+      </header>
+
+      <section class="workspace">
+        <form class="panel controls" id="crack-form">
+          <div class="panel-head">
+            <div>
+              <h2>Target</h2>
+              <p>Use only hashes you own or are authorized to test.</p>
+            </div>
+          </div>
+
+          <label class="field" for="hash-input">
+            <span>Hash</span>
+            <input
+              id="hash-input"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Paste a hex digest"
+              required
+            />
+          </label>
+
+          <div class="grid two">
+            <label class="field" for="algorithm-select">
+              <span>Algorithm</span>
+              <select id="algorithm-select">
+                <option value="md5">MD5</option>
+                <option value="SHA-1">SHA-1</option>
+                <option value="SHA-256" selected>SHA-256</option>
+                <option value="SHA-384">SHA-384</option>
+                <option value="SHA-512">SHA-512</option>
+              </select>
+            </label>
+
+            <label class="field" for="limit-input">
+              <span>Candidate limit</span>
+              <input id="limit-input" type="number" min="1" max="1000000" value="100000" />
+            </label>
+          </div>
+
+          <div class="grid two">
+            <label class="field" for="prefix-input">
+              <span>Salt prefix</span>
+              <input id="prefix-input" type="text" autocomplete="off" />
+            </label>
+
+            <label class="field" for="suffix-input">
+              <span>Salt suffix</span>
+              <input id="suffix-input" type="text" autocomplete="off" />
+            </label>
+          </div>
+
+          <fieldset class="checks">
+            <legend>Candidate handling</legend>
+            <label><input id="trim-lines" type="checkbox" checked /> Trim lines</label>
+            <label><input id="skip-empty" type="checkbox" checked /> Skip empty lines</label>
+            <label><input id="lowercase-copy" type="checkbox" /> Try lowercase copy</label>
+            <label><input id="uppercase-copy" type="checkbox" /> Try uppercase copy</label>
+          </fieldset>
+
+          <div class="button-row">
+            <button class="primary-button" id="start-button" type="submit">Start cracking</button>
+            <button class="ghost-button" id="stop-button" type="button" disabled>Stop</button>
+            <button class="ghost-button" id="sample-button" type="button">Load sample</button>
+          </div>
+        </form>
+
+        <section class="panel wordlist">
+          <div class="panel-head">
+            <div>
+              <h2>Wordlist</h2>
+              <p>Paste candidates or load a text file with one candidate per line.</p>
+            </div>
+            <label class="file-button">
+              <input id="wordlist-file" type="file" accept=".txt,.lst,.dic,text/plain" />
+              Load file
+            </label>
+          </div>
+
+          <textarea id="wordlist-input" spellcheck="false" placeholder="password&#10;letmein&#10;correcthorsebatterystaple"></textarea>
+        </section>
+      </section>
+
+      <section class="results">
+        <article class="stat">
+          <span>Status</span>
+          <strong id="status-value">Ready</strong>
+        </article>
+        <article class="stat">
+          <span>Checked</span>
+          <strong id="checked-value">0</strong>
+        </article>
+        <article class="stat">
+          <span>Speed</span>
+          <strong id="speed-value">0 / sec</strong>
+        </article>
+        <article class="stat match">
+          <span>Match</span>
+          <strong id="match-value">None</strong>
+        </article>
+      </section>
+
+      <section class="panel output">
+        <div class="panel-head">
+          <div>
+            <h2>Run log</h2>
+            <p id="digest-preview">No target loaded.</p>
+          </div>
+          <button class="ghost-button" id="copy-match" type="button" disabled>Copy match</button>
+        </div>
+        <ol id="log-list"></ol>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
