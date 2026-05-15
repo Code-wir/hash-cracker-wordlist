@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Caesar Cipher Tool</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Classical cryptography</p>
+          <h1>Caesar Cipher Tool</h1>
+        </div>
+        <div class="mode-switch" role="group" aria-label="Cipher mode">
+          <button id="encode-mode" class="segmented active" type="button" aria-pressed="true">Encode</button>
+          <button id="decode-mode" class="segmented" type="button" aria-pressed="false">Decode</button>
+        </div>
+      </header>
+
+      <section class="workspace" aria-label="Cipher workspace">
+        <section class="editor-panel">
+          <div class="panel-head">
+            <label for="input-text">Input</label>
+            <button id="clear-button" class="icon-button" type="button" title="Clear input" aria-label="Clear input">
+              x
+            </button>
+          </div>
+          <textarea id="input-text" spellcheck="false">Meet me by the west gate at dawn.</textarea>
+          <div class="editor-meta">
+            <span id="input-count">0 chars</span>
+            <button id="sample-button" class="text-button" type="button">Sample</button>
+          </div>
+        </section>
+
+        <aside class="controls-panel" aria-label="Cipher controls">
+          <label class="field" for="shift-range">
+            <span>Shift <strong id="shift-value">3</strong></span>
+            <input id="shift-range" type="range" min="0" max="25" value="3" />
+          </label>
+
+          <div class="stepper" aria-label="Shift stepper">
+            <button id="shift-down" type="button" aria-label="Decrease shift">-</button>
+            <input id="shift-number" type="number" min="0" max="25" value="3" aria-label="Shift value" />
+            <button id="shift-up" type="button" aria-label="Increase shift">+</button>
+          </div>
+
+          <label class="option">
+            <input id="preserve-case" type="checkbox" checked />
+            <span>Preserve letter case</span>
+          </label>
+
+          <label class="option">
+            <input id="group-output" type="checkbox" />
+            <span>Group output in blocks of five</span>
+          </label>
+
+          <div class="button-grid">
+            <button id="swap-button" class="secondary-button" type="button">Swap</button>
+            <button id="copy-button" class="primary-button" type="button">Copy Result</button>
+          </div>
+        </aside>
+
+        <section class="editor-panel result-panel">
+          <div class="panel-head">
+            <label for="output-text">Result</label>
+            <span id="status-text">Ready</span>
+          </div>
+          <textarea id="output-text" readonly spellcheck="false"></textarea>
+          <div class="editor-meta">
+            <span id="output-count">0 chars</span>
+            <span id="mode-detail">Encoding with shift 3</span>
+          </div>
+        </section>
+      </section>
+
+      <section class="insights">
+        <article class="analysis-panel">
+          <div class="panel-head">
+            <h2>Letter Frequency</h2>
+            <span id="letter-total">0 letters</span>
+          </div>
+          <div id="frequency-chart" class="frequency-chart" aria-label="Letter frequency chart"></div>
+        </article>
+
+        <article class="analysis-panel">
+          <div class="panel-head">
+            <h2>Brute Force</h2>
+            <span>All shifts</span>
+          </div>
+          <div id="brute-force-list" class="brute-force-list"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
